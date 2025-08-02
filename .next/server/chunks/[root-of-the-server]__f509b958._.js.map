@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 6, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 116, "column": 0}, "map": {"version":3,"sources":["file:///home/abdi/Desktop/starter-example/app/query/route.ts"],"sourcesContent":["// app/query/route.ts\nimport postgres from \"postgres\";\nimport { NextResponse } from \"next/server\";\n\nconst sql = postgres(process.env.POSTGRES_URL!, { ssl: \"require\" });\n\nexport async function GET() {\n  try {\n    const data = await sql`\n      SELECT invoices.amount, customers.name\n      FROM invoices\n      JOIN customers ON invoices.customer_id = customers.id\n      WHERE invoices.amount = 666;\n    `;\n\n    return NextResponse.json(data);\n  } catch (error) {\n    console.error(\"Error querying database:\", error);\n    return NextResponse.json(\n      { error: \"Internal Server Error\" },\n      { status: 500 }\n    );\n  }\n}\n"],"names":[],"mappings":"AAAA,qBAAqB;;;;AACrB;AACA;;;AAEA,MAAM,MAAM,CAAA,GAAA,+LAAA,CAAA,UAAQ,AAAD,EAAE,QAAQ,GAAG,CAAC,YAAY,EAAG;IAAE,KAAK;AAAU;AAE1D,eAAe;IACpB,IAAI;QACF,MAAM,OAAO,MAAM,GAAG,CAAC;;;;;IAKvB,CAAC;QAED,OAAO,+PAAA,CAAA,eAAY,CAAC,IAAI,CAAC;IAC3B,EAAE,OAAO,OAAO;QACd,QAAQ,KAAK,CAAC,4BAA4B;QAC1C,OAAO,+PAAA,CAAA,eAAY,CAAC,IAAI,CACtB;YAAE,OAAO;QAAwB,GACjC;YAAE,QAAQ;QAAI;IAElB;AACF","debugId":null}}]
+}
